@@ -1,12 +1,12 @@
 version: '2.1'
 services:
   latest:
-    image: "linshenqi/notify"
+    image: "linshenqi/notifly"
     ports:
       - "10002:10002"
     volumes:
-      - /data/notify/conf:/etc/notify/conf
-      - /data/notify/log:/etc/notify/log
+      - /data/notifly/conf:/etc/notifly/conf
+      - /data/notifly/log:/etc/notifly/log
       - /etc/localtime:/etc/localtime:ro
     restart: "always"
 #    healthcheck:
