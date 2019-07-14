@@ -1,0 +1,22 @@
+
+http:
+  addr: :10002
+
+model:
+  enable: false
+#  source: postgres
+#  name: name
+#  user: user
+#  pwd: pwd
+#  host: 127.0.0.1
+#  port: 5432
+
+wechat:
+  enable: true
+  endpoints:
+    mp:
+      appid: wx919dfd3bc27aca6b
+      appsecret: 4c2516457b0b6fffabf9623f97dbb490
+    srv:
+      appid: wx8932920e57b26e36
+      appsecret: a80b2a0fd151ebf647590ad93414e129
