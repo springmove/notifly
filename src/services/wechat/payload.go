@@ -34,5 +34,5 @@ type TemplateValue struct {
 
 type MiniProgram struct {
 	AppID string `json:"appid"`
-	Page  string `json:"pagepath"`
+	Page  string `json:"page"`
 }
