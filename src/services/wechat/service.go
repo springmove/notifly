@@ -74,7 +74,7 @@ func (s *Service) SendTemplateMsg(endpoint string, openid string, templateid str
 
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", token)
 
-	r := s.http.R().SetBody(&MsgTemplate{
+	body := MsgTemplate{
 		Touser:     openid,
 		TemplateID: templateid,
 		//Page:            page,
@@ -85,7 +85,8 @@ func (s *Service) SendTemplateMsg(endpoint string, openid string, templateid str
 		//FormID:          formid,
 		Data: data,
 		//EmphasisKeyword: "",
-	}).SetHeader("content-type", "application/json")
+	}
+	r := s.http.R().SetBody(&body).SetHeader("content-type", "application/json")
 
 	resp, err := r.Post(url)
 
