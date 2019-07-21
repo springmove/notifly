@@ -72,15 +72,19 @@ func (s *Service) SendTemplateMsg(endpoint string, openid string, templateid str
 		return err
 	}
 
-	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=%s", token)
+	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s", token)
 
 	r := s.http.R().SetBody(&MsgTemplate{
-		Touser:          openid,
-		TemplateID:      templateid,
-		Page:            page,
-		FormID:          formid,
-		Data:            data,
-		EmphasisKeyword: "",
+		Touser:     openid,
+		TemplateID: templateid,
+		//Page:            page,
+		MiniProgram: MiniProgram{
+			AppID: s.cfg.Endpoints["mp"].AppID,
+			Page:  page,
+		},
+		//FormID:          formid,
+		Data: data,
+		//EmphasisKeyword: "",
 	}).SetHeader("content-type", "application/json")
 
 	resp, err := r.Post(url)

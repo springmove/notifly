@@ -21,7 +21,7 @@ func (s *Controllers) postTemplateMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.service.wechat.SendTemplateMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.FormID, req.Data)
+	err = s.service.wechat.SendTemplateMsg(req.Endpoint, req.Touser, req.TemplateID, req.MiniProgram.Page, req.FormID, req.Data)
 	if err != nil {
 		ctx.StatusCode(iris.StatusBadRequest)
 		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
