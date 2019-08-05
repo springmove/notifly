@@ -19,9 +19,9 @@ type MsgResp struct {
 }
 
 type MsgTemplate struct {
-	Touser     string `json:"touser"`
-	TemplateID string `json:"template_id"`
-	//Page            string      `json:"page"`
+	Touser          string      `json:"touser"`
+	TemplateID      string      `json:"template_id"`
+	Url             string      `json:"url"`
 	MiniProgram     MiniProgram `json:"miniprogram"`
 	FormID          string      `json:"form_id"`
 	Data            interface{} `json:"data"`
