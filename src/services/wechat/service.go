@@ -1,12 +1,15 @@
 package wechat
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/kataras/iris/core/errors"
 	"github.com/linshenqi/sptty"
 	"gopkg.in/resty.v1"
+	"io/ioutil"
 	"net/http"
+	"path"
 )
 
 type Service struct {
@@ -219,6 +222,46 @@ func (s *Service) SendTemplateMsg(endpoint string, openid string, templateid str
 //}
 
 //func (s *Service) EnterpriseRobot
+
+func (s *Service) UploadImage(endpoint string, file string) (string, error) {
+	token, err := s.getAccessToken(endpoint)
+	if err != nil {
+		return "", err
+	}
+
+	fullPath := path.Join(s.cfg.ResPath, file)
+	image, err := ioutil.ReadFile(fullPath)
+	if err != nil {
+		return "", err
+	}
+
+	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s", token, "image")
+
+	r := s.http.R().SetFileReader("image", file, bytes.NewReader(image))
+
+	resp, err := r.Post(url)
+
+	msgresp := MsgRespImage{}
+
+	if err != nil {
+		return "", err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return "", errors.New(fmt.Sprintf("%d", resp.StatusCode()))
+		} else {
+			err := json.Unmarshal(resp.Body(), &msgresp)
+			if err != nil {
+				return "", err
+			}
+
+			if msgresp.Errcode == 0 {
+				return msgresp.MediaID, nil
+			} else {
+				return "", errors.New(fmt.Sprintf("errcode:%d errmsg:%s", msgresp.Errcode, msgresp.Errmsg))
+			}
+		}
+	}
+}
 
 func (s *Service) SendCustomerMsg(endpoint string, body interface{}) error {
 	token, err := s.getAccessToken(endpoint)

@@ -5,6 +5,7 @@ services:
     ports:
       - "10002:10002"
     volumes:
+      - /data/res:/etc/notifly/res
       - /data/notifly/conf:/etc/notifly/conf
       - /data/notifly/log:/etc/notifly/log
       - /etc/localtime:/etc/localtime:ro

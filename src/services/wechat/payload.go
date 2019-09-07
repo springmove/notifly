@@ -18,6 +18,11 @@ type MsgResp struct {
 	Errmsg  string `json:"errmsg"`
 }
 
+type MsgRespImage struct {
+	MsgResp
+	MediaID string `json:"media_id"`
+}
+
 type MsgTemplate struct {
 	Touser          string      `json:"touser"`
 	TemplateID      string      `json:"template_id"`
@@ -72,4 +77,9 @@ type CustomerMsgImage struct {
 type CustomerMsgLink struct {
 	CustomerMsg
 	Link MsgLink `json:"link"`
+}
+
+type CustomerMsgText struct {
+	CustomerMsg
+	Text Content `json:"text"`
 }

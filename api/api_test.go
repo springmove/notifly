@@ -20,22 +20,40 @@ func TestCustomerMsg(t *testing.T) {
 	notifly := Notifly{}
 	notifly.InitService(&cfg)
 
-	err := notifly.PostCustomerMsg(&notify.CustomerMsg{
+	mediaID, err := notifly.PostCustomerImage(&notify.CustomerImage{
 		Endpoint: "mp",
-		Body: wechat.CustomerMsgLink{
+		Path:     "/home/linshenqi/Pictures/wyy_qrcode.jpg",
+	})
+
+	assert.Nil(t, err)
+
+	err = notifly.PostCustomerMsg(&notify.CustomerMsg{
+		Endpoint: "mp",
+		Body: wechat.CustomerMsgImage{
 			CustomerMsg: wechat.CustomerMsg{
 				ToUser:  "oHdMv5aqHTw56H56G4dfedPEGRVk",
-				MsgType: "link",
+				MsgType: "image",
 			},
-			Link: wechat.MsgLink{
-				Title: "test",
-				Desc:  "desc",
-				Url:   "https://res.511cwpt.com/bloeqa8vijrc5u29m79g.jpg",
+			Image: wechat.MsgImage{
+				MediaID: mediaID,
 			},
 		},
 	})
 
 	assert.Nil(t, err)
+
+	//err = notifly.PostCustomerMsg(&notify.CustomerMsg{
+	//	Endpoint: "mp",
+	//	Body: wechat.CustomerMsgText{
+	//		CustomerMsg: wechat.CustomerMsg{
+	//			ToUser:  "oHdMv5aqHTw56H56G4dfedPEGRVk",
+	//			MsgType: "text",
+	//		},
+	//		Text: wechat.Content{
+	//			Content: "终于等到你，长按扫码关注我们的公众号开启专属你的宠物消息推送吧！",
+	//		},
+	//	},
+	//})
 
 	//resp.Data.(wechat.WXAuthResponse)
 	//fmt.Printf("%s\n", wx)

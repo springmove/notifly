@@ -2,6 +2,7 @@ package wechat
 
 type Config struct {
 	Enable    bool                            `yaml:"enable"`
+	ResPath   string                          `yaml:"respath"`
 	Endpoints map[string]ConfigWecharEndpoint `yaml:"endpoints"`
 }
 

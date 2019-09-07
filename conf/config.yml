@@ -13,6 +13,7 @@ model:
 
 wechat:
   enable: true
+  respath: /home/linshenqi/Pictures
   endpoints:
     mp:
       appid: wx919dfd3bc27aca6b

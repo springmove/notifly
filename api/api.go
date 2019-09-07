@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/linshenqi/notifly/src/services/notify"
@@ -82,6 +83,24 @@ func (s *Notifly) PostEnterpriseMsg(req *notify.EnterpriseMsg) error {
 			return errors.New(string(resp.Body()))
 		} else {
 			return nil
+		}
+	}
+}
+
+func (s *Notifly) PostCustomerImage(req *notify.CustomerImage) (string, error) {
+	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
+	url := fmt.Sprintf("%s/api/v1/customer-image", s.cfg.Url)
+	resp, err := r.Post(url)
+
+	image := notify.CustomerImageResp{}
+	if err != nil {
+		return "", err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return "", errors.New(string(resp.Body()))
+		} else {
+			_ = json.Unmarshal(resp.Body(), &image)
+			return image.MediaID, nil
 		}
 	}
 }

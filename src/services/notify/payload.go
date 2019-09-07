@@ -7,6 +7,15 @@ const (
 	NOTIFY_ERR_MSG = "0002"
 )
 
+type CustomerImage struct {
+	Endpoint string `json:"endpoint"`
+	Path     string `json:"path"`
+}
+
+type CustomerImageResp struct {
+	MediaID string `json:"media_id"`
+}
+
 type CustomerMsg struct {
 	Endpoint string      `json:"endpoint"`
 	Body     interface{} `json:"body"`

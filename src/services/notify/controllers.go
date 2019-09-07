@@ -1,6 +1,7 @@
 package notify
 
 import (
+	"encoding/json"
 	"github.com/kataras/iris"
 	"github.com/linshenqi/sptty"
 )
@@ -29,6 +30,33 @@ func (s *Controllers) postTemplateMsg(ctx iris.Context) {
 	}
 
 	ctx.StatusCode(iris.StatusOK)
+}
+
+// 上传图片用于图片消息
+func (s *Controllers) postCustomerImage(ctx iris.Context) {
+	ctx.Header("content-type", "application/json")
+	req := CustomerImage{}
+
+	err := ctx.ReadJSON(&req)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_REQ, err.Error()))
+		return
+	}
+
+	mediaID, err := s.service.wechat.UploadImage(req.Endpoint, req.Path)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+		return
+	}
+
+	ctx.StatusCode(iris.StatusOK)
+	body, _ := json.Marshal(CustomerImageResp{
+		MediaID: mediaID,
+	})
+
+	_, _ = ctx.Write(body)
 }
 
 // 发送自定义客服消息
