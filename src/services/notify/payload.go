@@ -8,12 +8,16 @@ const (
 )
 
 type CustomerMsg struct {
-	Endpoint string `json:"endpoint"`
-	OpenID   string `json:"openid"`
-	Content  string `json:"content"`
+	Endpoint string      `json:"endpoint"`
+	Body     interface{} `json:"body"`
 }
 
 type TemplateMsg struct {
 	Endpoint string `json:"endpoint"`
 	wechat.MsgTemplate
+}
+
+type EnterpriseMsg struct {
+	Endpoint string `json:"endpoint"`
+	wechat.EnterpriseGroupMsg
 }

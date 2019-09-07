@@ -20,3 +20,6 @@ wechat:
     srv:
       appid: wx8932920e57b26e36
       appsecret: a80b2a0fd151ebf647590ad93414e129
+    enterprise:
+      appid: ww0156ea32144ac4fc
+      appsecret: na

@@ -22,6 +22,7 @@ func (s *Service) Init(service sptty.Sptty) error {
 
 	s.app.AddRoute("POST", "/customer-msgs", s.controllers.postCustomerMsg)
 	s.app.AddRoute("POST", "/template-msgs", s.controllers.postTemplateMsg)
+	s.app.AddRoute("POST", "/enterprise-msgs", s.controllers.postEnterpriseMsg)
 
 	return nil
 }

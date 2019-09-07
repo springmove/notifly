@@ -40,6 +40,32 @@ func (s *Service) Enable() bool {
 	return true
 }
 
+func (s *Service) getEnterpriseAccessToken(endpoint string) (string, error) {
+	ep := s.cfg.Endpoints[endpoint]
+	tr := TokenResp{}
+
+	url := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s",
+		ep.AppID,
+		ep.AppSecret)
+
+	resp, err := s.http.R().Get(url)
+
+	if err != nil {
+		return "", err
+	} else {
+		err = json.Unmarshal(resp.Body(), &tr)
+		if err != nil {
+			return "", err
+		} else {
+			if tr.Errcode == 0 {
+				return tr.AccessToken, nil
+			} else {
+				return "", errors.New(fmt.Sprintf("errcode:%d errmsg:%s", tr.Errcode, tr.Errmsg))
+			}
+		}
+	}
+}
+
 func (s *Service) getAccessToken(endpoint string) (string, error) {
 	ep := s.cfg.Endpoints[endpoint]
 	tr := TokenResp{}
@@ -61,6 +87,49 @@ func (s *Service) getAccessToken(endpoint string) (string, error) {
 				return tr.AccessToken, nil
 			} else {
 				return "", errors.New(fmt.Sprintf("errcode:%d errmsg:%s", tr.Errcode, tr.Errmsg))
+			}
+		}
+	}
+}
+
+func (s *Service) SendEnterpriseGroupMsg(endpoint string, chatID string, msgType string, safe int, content string) error {
+	token, err := s.getEnterpriseAccessToken(endpoint)
+	if err != nil {
+		return err
+	}
+
+	url := fmt.Sprintf(" https://qyapi.weixin.qq.com/cgi-bin/appchat/send?access_token=%s", token)
+
+	body := EnterpriseGroupMsg{
+		ChatID:  chatID,
+		MsgType: msgType,
+		Safe:    safe,
+		Text: Content{
+			Content: content,
+		},
+	}
+
+	r := s.http.R().SetBody(&body).SetHeader("content-type", "application/json")
+
+	resp, err := r.Post(url)
+
+	msgresp := MsgResp{}
+
+	if err != nil {
+		return err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return errors.New(fmt.Sprintf("%d", resp.StatusCode()))
+		} else {
+			err := json.Unmarshal(resp.Body(), &msgresp)
+			if err != nil {
+				return err
+			}
+
+			if msgresp.Errcode == 0 {
+				return nil
+			} else {
+				return errors.New(fmt.Sprintf("errcode:%d errmsg:%s", msgresp.Errcode, msgresp.Errmsg))
 			}
 		}
 	}
@@ -112,18 +181,53 @@ func (s *Service) SendTemplateMsg(endpoint string, openid string, templateid str
 	}
 }
 
-func (s *Service) SendCustomerMsg(endpoint string, openid string, content string) error {
+//func (s *Service) SendCustomerMsg(endpoint string, openid string, content string) error {
+//	token, err := s.getAccessToken(endpoint)
+//	if err != nil {
+//		return err
+//	}
+//
+//	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s", token)
+//	r := s.http.R().SetBody(&MsgCustomer{
+//		Touser:  openid,
+//		Msgtype: "text",
+//		Text:    content,
+//	}).SetHeader("content-type", "application/json")
+//
+//	resp, err := r.Post(url)
+//
+//	msgresp := MsgResp{}
+//
+//	if err != nil {
+//		return err
+//	} else {
+//		if resp.StatusCode() != http.StatusOK {
+//			return errors.New(fmt.Sprintf("%d", resp.StatusCode()))
+//		} else {
+//			err := json.Unmarshal(resp.Body(), &msgresp)
+//			if err != nil {
+//				return err
+//			}
+//
+//			if msgresp.Errcode == 0 {
+//				return nil
+//			} else {
+//				return errors.New(fmt.Sprintf("errcode:%d errmsg:%s", msgresp.Errcode, msgresp.Errmsg))
+//			}
+//		}
+//	}
+//}
+
+//func (s *Service) EnterpriseRobot
+
+func (s *Service) SendCustomerMsg(endpoint string, body interface{}) error {
 	token, err := s.getAccessToken(endpoint)
 	if err != nil {
 		return err
 	}
 
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s", token)
-	r := s.http.R().SetBody(&MsgCustomer{
-		Touser:  openid,
-		Msgtype: "text",
-		Text:    content,
-	}).SetHeader("content-type", "application/json")
+	r := s.http.R().SetBody(body).SetHeader("content-type", "application/json")
 
 	resp, err := r.Post(url)
 

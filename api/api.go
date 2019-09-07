@@ -69,3 +69,19 @@ func (s *Notifly) PostTemplateMsg(req *notify.TemplateMsg) error {
 		}
 	}
 }
+
+func (s *Notifly) PostEnterpriseMsg(req *notify.EnterpriseMsg) error {
+	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
+	url := fmt.Sprintf("%s/api/v1/enterprise-msgs", s.cfg.Url)
+	resp, err := r.Post(url)
+
+	if err != nil {
+		return err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return errors.New(string(resp.Body()))
+		} else {
+			return nil
+		}
+	}
+}

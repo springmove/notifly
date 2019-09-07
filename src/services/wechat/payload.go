@@ -36,3 +36,40 @@ type MiniProgram struct {
 	AppID string `json:"appid"`
 	Page  string `json:"page"`
 }
+
+type Content struct {
+	Content string `json:"content"`
+}
+
+type EnterpriseGroupMsg struct {
+	ChatID  string  `json:"chatid"`
+	MsgType string  `json:"msgtype"`
+	Safe    int     `json:"safe"`
+	Text    Content `json:"text"`
+}
+
+type CustomerMsg struct {
+	ToUser  string `json:"touser"`
+	MsgType string `json:"msgtype"`
+}
+
+type MsgImage struct {
+	MediaID string `json:"media_id"`
+}
+
+type MsgLink struct {
+	Title    string `json:"title"`
+	Desc     string `json:"description"`
+	Url      string `json:"url"`
+	ThumbUrl string `json:"thumb_url"`
+}
+
+type CustomerMsgImage struct {
+	CustomerMsg
+	Image MsgImage `json:"image"`
+}
+
+type CustomerMsgLink struct {
+	CustomerMsg
+	Link MsgLink `json:"link"`
+}

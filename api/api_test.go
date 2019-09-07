@@ -21,9 +21,18 @@ func TestCustomerMsg(t *testing.T) {
 	notifly.InitService(&cfg)
 
 	err := notifly.PostCustomerMsg(&notify.CustomerMsg{
-		Endpoint: "srv",
-		OpenID:   "oHdMv5aqHTw56H56G4dfedPEGRVk",
-		Content:  "test msg",
+		Endpoint: "mp",
+		Body: wechat.CustomerMsgLink{
+			CustomerMsg: wechat.CustomerMsg{
+				ToUser:  "oHdMv5aqHTw56H56G4dfedPEGRVk",
+				MsgType: "link",
+			},
+			Link: wechat.MsgLink{
+				Title: "test",
+				Desc:  "desc",
+				Url:   "https://res.511cwpt.com/bloeqa8vijrc5u29m79g.jpg",
+			},
+		},
 	})
 
 	assert.Nil(t, err)

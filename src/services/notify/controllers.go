@@ -43,7 +43,28 @@ func (s *Controllers) postCustomerMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.service.wechat.SendCustomerMsg(req.Endpoint, req.OpenID, req.Content)
+	err = s.service.wechat.SendCustomerMsg(req.Endpoint, req.Body)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+		return
+	}
+
+	ctx.StatusCode(iris.StatusOK)
+}
+
+func (s *Controllers) postEnterpriseMsg(ctx iris.Context) {
+	ctx.Header("content-type", "application/json")
+	req := EnterpriseMsg{}
+
+	err := ctx.ReadJSON(&req)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_REQ, err.Error()))
+		return
+	}
+
+	err = s.service.wechat.SendEnterpriseGroupMsg(req.Endpoint, req.ChatID, req.MsgType, req.Safe, req.Text.Content)
 	if err != nil {
 		ctx.StatusCode(iris.StatusBadRequest)
 		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
