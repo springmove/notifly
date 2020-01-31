@@ -43,6 +43,13 @@ type MPMsgTemplate struct {
 	//EmphasisKeyword string      `json:"emphasis_keyword"`
 }
 
+type MsgSub struct {
+	Touser     string      `json:"touser"`
+	TemplateID string      `json:"template_id"`
+	Page       string      `json:"page"`
+	Data       interface{} `json:"data"`
+}
+
 type TemplateValue struct {
 	Value string `json:"value"`
 }

@@ -224,6 +224,46 @@ func (s *Service) SendMPTemplateMsg(endpoint string, openid string, templateid s
 	}
 }
 
+func (s *Service) SendMPSubMsg(endpoint string, openid string, templateid string, page string, data interface{}) error {
+	token, err := s.getAccessToken(endpoint)
+	if err != nil {
+		return err
+	}
+
+	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=%s", token)
+
+	body := MsgSub{
+		Touser:     openid,
+		TemplateID: templateid,
+		Page:       page,
+		Data:       data,
+	}
+	r := s.http.R().SetBody(&body).SetHeader("content-type", "application/json")
+
+	resp, err := r.Post(url)
+
+	msgresp := MsgResp{}
+
+	if err != nil {
+		return err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return errors.New(fmt.Sprintf("%d", resp.StatusCode()))
+		} else {
+			err := json.Unmarshal(resp.Body(), &msgresp)
+			if err != nil {
+				return err
+			}
+
+			if msgresp.Errcode == 0 {
+				return nil
+			} else {
+				return errors.New(fmt.Sprintf("errcode:%d errmsg:%s", msgresp.Errcode, msgresp.Errmsg))
+			}
+		}
+	}
+}
+
 //func (s *Service) SendCustomerMsg(endpoint string, openid string, content string) error {
 //	token, err := s.getAccessToken(endpoint)
 //	if err != nil {

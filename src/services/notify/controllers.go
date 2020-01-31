@@ -122,3 +122,24 @@ func (s *Controllers) postEnterpriseMsg(ctx iris.Context) {
 
 	ctx.StatusCode(iris.StatusOK)
 }
+
+func (s *Controllers) postMPSubMsg(ctx iris.Context) {
+	ctx.Header("content-type", "application/json")
+	req := MPSubscribeMsg{}
+
+	err := ctx.ReadJSON(&req)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_REQ, err.Error()))
+		return
+	}
+
+	err = s.service.wechat.SendMPSubMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.Data)
+	if err != nil {
+		ctx.StatusCode(iris.StatusBadRequest)
+		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+		return
+	}
+
+	ctx.StatusCode(iris.StatusOK)
+}

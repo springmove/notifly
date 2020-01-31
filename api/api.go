@@ -104,3 +104,19 @@ func (s *Notifly) PostCustomerImage(req *notify.CustomerImage) (string, error) {
 		}
 	}
 }
+
+func (s *Notifly) PostMPSubscribeMsg(req *notify.MPSubscribeMsg) error {
+	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
+	url := fmt.Sprintf("%s/api/v1/mp-subscribe-msgs", s.cfg.Url)
+	resp, err := r.Post(url)
+
+	if err != nil {
+		return err
+	} else {
+		if resp.StatusCode() != http.StatusOK {
+			return errors.New(string(resp.Body()))
+		} else {
+			return nil
+		}
+	}
+}
