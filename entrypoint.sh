@@ -6,4 +6,3 @@ if [ ! -f "/etc/notifly/conf/config.yml" ];then
 fi
 
 exec "$@"
-
