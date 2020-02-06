@@ -12,25 +12,22 @@ import (
 	"path"
 )
 
+const (
+	ServiceName = "wechat"
+)
+
 type Service struct {
-	app sptty.Sptty
 	cfg Config
 
 	http *resty.Client
 }
 
-func (s *Service) Init(service sptty.Sptty) error {
-	s.app = service
+func (s *Service) Init(app sptty.Sptty) error {
+	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
+		return err
+	}
 
-	_ = s.app.GetConfig("wechat", &s.cfg)
-	s.http = sptty.CreateHttpClient(&sptty.HttpClientConfig{
-		Timeout:      8,
-		PushInterval: 1,
-		MaxRetry:     3,
-		Headers: map[string]string{
-			"Content-Type": "application/json",
-		},
-	})
+	s.http = sptty.CreateHttpClient(sptty.DefaultHttpClientConfig())
 
 	return nil
 }
@@ -41,6 +38,10 @@ func (s *Service) Release() {
 
 func (s *Service) Enable() bool {
 	return true
+}
+
+func (s *Service) ServiceName() string {
+	return ServiceName
 }
 
 func (s *Service) getEnterpriseAccessToken(endpoint string) (string, error) {

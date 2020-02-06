@@ -14,18 +14,13 @@ func main() {
 	app := sptty.GetApp()
 	app.ConfFromFile(*cfg)
 
-	services := map[string]sptty.Service{
-		"wechat": &wechat.Service{},
-		"notify": &notify.Service{},
-		//"auth":   &auth.AuthService{},
-		//"jwt":    &jwt.JwtService{},
+	services := sptty.Services{
+		&wechat.Service{},
+		&notify.Service{},
 	}
 
-	configs := sptty.SpttyConfig{
-		"http":   sptty.HttpConfig{},
-		"model":  sptty.ModelConfig{},
-		"wechat": wechat.Config{},
-		//"jwt":    jwt.JwtConfig{},
+	configs := sptty.Configs{
+		&wechat.Config{},
 	}
 
 	app.AddServices(services)

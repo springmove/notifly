@@ -9,12 +9,8 @@ import (
 )
 
 func TestCustomerMsg(t *testing.T) {
-	cfg := NotiflyConfig{
-		Url:          "http://127.0.0.1:10002",
-		Timeout:      3,
-		Headers:      map[string]string{"Content-Type": "application/json"},
-		PushInterval: 1,
-		MaxRetry:     1,
+	cfg := Config{
+		Url: "http://127.0.0.1:10002",
 	}
 
 	notifly := Notifly{}
@@ -60,12 +56,8 @@ func TestCustomerMsg(t *testing.T) {
 }
 
 func TestTemplateMsg(t *testing.T) {
-	cfg := NotiflyConfig{
-		Url:          "http://127.0.0.1:10002",
-		Timeout:      3,
-		Headers:      map[string]string{"Content-Type": "application/json"},
-		PushInterval: 1,
-		MaxRetry:     1,
+	cfg := Config{
+		Url: "http://127.0.0.1:10002",
 	}
 
 	notifly := Notifly{}

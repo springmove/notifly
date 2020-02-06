@@ -1,26 +1,22 @@
 
+log:
+  file: STDOUT
+  level: DEBUG
+  max_age: 1000h
+  rotate: 24h
+
 http:
   addr: :10002
 
-model:
-  enable: false
-#  source: postgres
-#  name: name
-#  user: user
-#  pwd: pwd
-#  host: 127.0.0.1
-#  port: 5432
-
 wechat:
-  enable: true
   respath: /home/linshenqi/Pictures
   endpoints:
     mp:
-      appid: wx919dfd3bc27aca6b
-      appsecret: 4c2516457b0b6fffabf9623f97dbb490
+      app_id: wx919dfd3bc27aca6b
+      app_secret: 4c2516457b0b6fffabf9623f97dbb490
     srv:
-      appid: wx8932920e57b26e36
-      appsecret: a80b2a0fd151ebf647590ad93414e129
+      app_id: wx8932920e57b26e36
+      app_secret: a80b2a0fd151ebf647590ad93414e129
     enterprise:
-      appid: ww0156ea32144ac4fc
-      appsecret: na
+      app_id: ww0156ea32144ac4fc
+      app_secret: na

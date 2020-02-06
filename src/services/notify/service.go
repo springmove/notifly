@@ -5,27 +5,23 @@ import (
 	"github.com/linshenqi/sptty"
 )
 
-type Service struct {
-	app         sptty.Sptty
-	controllers *Controllers
+const (
+	ServiceName = "notify"
+)
 
+type Service struct {
 	wechat *wechat.Service
 }
 
-func (s *Service) Init(service sptty.Sptty) error {
-	s.app = service
-	s.wechat = service.GetService("wechat").(*wechat.Service)
+func (s *Service) Init(app sptty.Sptty) error {
+	s.wechat = app.GetService(wechat.ServiceName).(*wechat.Service)
 
-	s.controllers = &Controllers{
-		service: s,
-	}
-
-	s.app.AddRoute("POST", "/customer-image", s.controllers.postCustomerImage)
-	s.app.AddRoute("POST", "/customer-msgs", s.controllers.postCustomerMsg)
-	s.app.AddRoute("POST", "/template-msgs", s.controllers.postTemplateMsg)
-	s.app.AddRoute("POST", "/mp-template-msgs", s.controllers.postMPTemplateMsg)
-	s.app.AddRoute("POST", "/enterprise-msgs", s.controllers.postEnterpriseMsg)
-	s.app.AddRoute("POST", "/mp-subscribe-msgs", s.controllers.postMPSubMsg)
+	app.AddRoute("POST", "/customer-image", s.postCustomerImage)
+	app.AddRoute("POST", "/customer-msgs", s.postCustomerMsg)
+	app.AddRoute("POST", "/template-msgs", s.postTemplateMsg)
+	app.AddRoute("POST", "/mp-template-msgs", s.postMPTemplateMsg)
+	app.AddRoute("POST", "/enterprise-msgs", s.postEnterpriseMsg)
+	app.AddRoute("POST", "/mp-subscribe-msgs", s.postMPSubMsg)
 
 	return nil
 }
@@ -36,4 +32,8 @@ func (s *Service) Release() {
 
 func (s *Service) Enable() bool {
 	return true
+}
+
+func (s *Service) ServiceName() string {
+	return ServiceName
 }

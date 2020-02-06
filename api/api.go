@@ -10,31 +10,19 @@ import (
 	"net/http"
 )
 
-type NotiflyConfig struct {
-	Url          string            `yaml:"url"`
-	Timeout      int               `yaml:"timeout"`
-	Headers      map[string]string `yaml:"headers"`
-	PushInterval int               `yaml:"push_interval"`
-	MaxRetry     int               `yaml:"max_retry"`
+type Config struct {
+	Url string `yaml:"url"`
 }
 
 type Notifly struct {
-	cfg  *NotiflyConfig
+	cfg  *Config
 	http *resty.Client
 }
 
-func (s *Notifly) InitService(cfg *NotiflyConfig) error {
+func (s *Notifly) InitService(cfg *Config) error {
 
 	s.cfg = cfg
-
-	clientCfg := sptty.HttpClientConfig{
-		Timeout:      s.cfg.Timeout,
-		Headers:      s.cfg.Headers,
-		PushInterval: s.cfg.PushInterval,
-		MaxRetry:     s.cfg.MaxRetry,
-	}
-
-	s.http = sptty.CreateHttpClient(&clientCfg)
+	s.http = sptty.CreateHttpClient(sptty.DefaultHttpClientConfig())
 
 	return nil
 }
