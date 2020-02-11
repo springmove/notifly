@@ -20,3 +20,26 @@ wechat:
     enterprise:
       app_id: ww0156ea32144ac4fc
       app_secret: na
+
+sms:
+  endpoints:
+    ashibro_cn:
+      provider: aliyun
+      app_key: 123
+      app_secret: 123
+      region: cn-hangzhou
+      sign_name: Ashibro
+      template_code: 123
+    ashibro:
+      provider: twilio
+      app_key: 123
+      app_secret: 123
+      host_num: +1123124124
+
+email:
+  endpoints:
+    ashibro:
+      author: wef@wef.com
+      pwd: 3234
+      host: smtp.wef.com
+      port: 123
