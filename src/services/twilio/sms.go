@@ -2,12 +2,12 @@ package twilio
 
 import (
 	"errors"
-	"github.com/linshenqi/notifly/src/services/sms"
+	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/sfreiberg/gotwilio"
 )
 
 type SMS struct {
-	sms.BaseSMSProvider
+	base.BaseSMSProvider
 	clients map[string]*gotwilio.Twilio
 }
 
@@ -19,7 +19,7 @@ func (s *SMS) Init() {
 	}
 }
 
-func (s *SMS) Send(req sms.Request) error {
+func (s *SMS) Send(req base.Request) error {
 	ep, err := s.GetEndpoint(req.Endpoint)
 	if err != nil {
 		return err
@@ -30,9 +30,13 @@ func (s *SMS) Send(req sms.Request) error {
 		return errors.New("Client Not Found ")
 	}
 
-	resp, _, err := client.SendSMS(ep.HostNum, req.Mobile, req.Content, "", "")
+	resp, ex, err := client.SendSMS(ep.HostNum, req.Mobile, req.Content, "", "")
 	if err != nil {
 		return err
+	}
+
+	if ex != nil {
+		return ex
 	}
 
 	if resp.Status != "sent" {

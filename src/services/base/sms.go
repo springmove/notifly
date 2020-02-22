@@ -1,4 +1,4 @@
-package sms
+package base
 
 import (
 	"errors"
@@ -8,6 +8,16 @@ const (
 	Aliyun = "aliyun"
 	Twilio = "twilio"
 )
+
+type Endpoint struct {
+	Provider     string `yaml:"provider"`
+	AppKey       string `yaml:"app_key"`
+	AppSecret    string `yaml:"app_secret"`
+	Region       string `yaml:"region"`
+	SignName     string `yaml:"sign_name"`
+	TemplateCode string `yaml:"template_code"`
+	HostNum      string `yaml:"host_num"`
+}
 
 type Request struct {
 	Provider string `json:"provider"`

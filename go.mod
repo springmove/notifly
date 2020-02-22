@@ -7,7 +7,7 @@ require (
 	github.com/json-iterator/go v1.1.7 // indirect
 	github.com/kataras/iris v11.1.1+incompatible
 	github.com/klauspost/compress v1.10.0 // indirect
-	github.com/linshenqi/sptty v0.0.0-20200211162103-9c1bd70a0667
+	github.com/linshenqi/sptty v0.0.0-20200222082850-5b0b7410333e
 	github.com/sfreiberg/gotwilio v0.0.0-20200113224334-06f83df0c687
 	github.com/stretchr/testify v1.4.0
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect

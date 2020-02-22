@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
-	"github.com/linshenqi/notifly/src/services/sms"
+	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/linshenqi/sptty"
 )
 
 type SMS struct {
-	sms.BaseSMSProvider
+	base.BaseSMSProvider
 	clients map[string]*dysmsapi.Client
 }
 
@@ -18,7 +18,7 @@ func (s *SMS) Init() {
 	for name, endpoint := range s.Endpoints {
 		client, err := dysmsapi.NewClientWithAccessKey(endpoint.Region, endpoint.AppKey, endpoint.AppSecret)
 		if err != nil {
-			sptty.Log(sptty.ErrorLevel, err.Error(), sms.ServiceName)
+			sptty.Log(sptty.ErrorLevel, err.Error(), base.Aliyun)
 			continue
 		}
 
@@ -26,7 +26,7 @@ func (s *SMS) Init() {
 	}
 }
 
-func (s *SMS) Send(req sms.Request) error {
+func (s *SMS) Send(req base.Request) error {
 	ep, err := s.GetEndpoint(req.Endpoint)
 	if err != nil {
 		return err

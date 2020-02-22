@@ -2,6 +2,9 @@ package sms
 
 import (
 	"errors"
+	"github.com/linshenqi/notifly/src/services/aliyun"
+	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/services/twilio"
 	"github.com/linshenqi/sptty"
 )
 
@@ -11,7 +14,7 @@ const (
 
 type Service struct {
 	cfg       Config
-	providers map[string]ISMSProvider
+	providers map[string]base.ISMSProvider
 }
 
 func (s *Service) Init(app sptty.Sptty) error {
@@ -19,6 +22,7 @@ func (s *Service) Init(app sptty.Sptty) error {
 		return err
 	}
 
+	s.setupProviders()
 	s.initProviders()
 
 	return nil
@@ -36,8 +40,13 @@ func (s *Service) ServiceName() string {
 	return ServiceName
 }
 
-func (s *Service) Send(req Request) error {
-	provider, err := s.getProvider(req.Provider)
+func (s *Service) Send(req base.Request) error {
+	endpoint, err := s.getEndpoint(req.Endpoint)
+	if err != nil {
+		return err
+	}
+
+	provider, err := s.getProvider(endpoint.Provider)
 	if err != nil {
 		return err
 	}
@@ -60,7 +69,7 @@ func (s *Service) initProviders() {
 	}
 }
 
-func (s *Service) getProvider(providerType string) (ISMSProvider, error) {
+func (s *Service) getProvider(providerType string) (base.ISMSProvider, error) {
 	provider, exist := s.providers[providerType]
 	if !exist {
 		return nil, errors.New("Provider Not Found ")
@@ -69,6 +78,18 @@ func (s *Service) getProvider(providerType string) (ISMSProvider, error) {
 	return provider, nil
 }
 
-func (s *Service) SetupProviders(providers map[string]ISMSProvider) {
-	s.providers = providers
+func (s *Service) getEndpoint(endpoint string) (*base.Endpoint, error) {
+	ep, exist := s.cfg.Endpoints[endpoint]
+	if !exist {
+		return nil, errors.New("Endpoint Not Found ")
+	}
+
+	return &ep, nil
+}
+
+func (s *Service) setupProviders() {
+	s.providers = map[string]base.ISMSProvider{
+		base.Aliyun: &aliyun.SMS{},
+		base.Twilio: &twilio.SMS{},
+	}
 }

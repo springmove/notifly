@@ -1,17 +1,9 @@
 package sms
 
-type Config struct {
-	Endpoints map[string]Endpoint `yaml:"endpoints"`
-}
+import "github.com/linshenqi/notifly/src/services/base"
 
-type Endpoint struct {
-	Provider     string `yaml:"provider"`
-	AppKey       string `yaml:"app_key"`
-	AppSecret    string `yaml:"app_secret"`
-	Region       string `yaml:"region"`
-	SignName     string `yaml:"sign_name"`
-	TemplateCode string `yaml:"template_code"`
-	HostNum      string `yaml:"host_num"`
+type Config struct {
+	Endpoints map[string]base.Endpoint `yaml:"endpoints"`
 }
 
 func (s *Config) ConfigName() string {
