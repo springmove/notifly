@@ -23,7 +23,7 @@ func getService() *Service {
 			AppSecret:    "ZVJbGx3TDQPYHMNmlHtLjQySisu5dX",
 			Region:       "cn-hangzhou",
 			SignName:     "Ashibro",
-			TemplateCode: "ashibro",
+			TemplateCode: "SMS_183261852",
 		},
 	}}}
 
