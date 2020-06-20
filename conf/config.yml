@@ -43,3 +43,11 @@ email:
       pwd: 3234
       host: smtp.wef.com
       port: 123
+
+im:
+  endpoints:
+    ashibro:
+      provider: goeasy
+      app_key: BC-0304a351925c472ea61f3c16b32c77af
+      hosts:
+        - https://rest-hangzhou.goeasy.io/publish
