@@ -6,7 +6,7 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.4
 	github.com/kataras/iris v11.1.1+incompatible
 	github.com/kataras/iris/v12 v12.1.8
-	github.com/linshenqi/sptty v0.0.0-20200224172144-026dc30a20a6
+	github.com/linshenqi/sptty v0.0.0-20200502045959-0a2cd326c4ce
 	github.com/sfreiberg/gotwilio v0.0.0-20200219192335-4472db517000
 	github.com/stretchr/testify v1.5.1
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect

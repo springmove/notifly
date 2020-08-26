@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+
 	"github.com/linshenqi/notifly/src/services/email"
 	"github.com/linshenqi/notifly/src/services/notify"
 	"github.com/linshenqi/notifly/src/services/sms"
@@ -26,7 +27,6 @@ func main() {
 	configs := sptty.Configs{
 		&sms.Config{},
 		&email.Config{},
-		&wechat.Config{},
 	}
 
 	app.AddServices(services)

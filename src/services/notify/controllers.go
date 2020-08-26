@@ -1,7 +1,6 @@
 package notify
 
 import (
-	"encoding/json"
 	"github.com/kataras/iris/v12"
 	"github.com/linshenqi/sptty"
 )
@@ -18,12 +17,12 @@ func (s *Service) postTemplateMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.wechat.SendTemplateMsg(req.Endpoint, req.Touser, req.TemplateID, req.MiniProgram.Page, req.FormID, req.Data)
-	if err != nil {
-		ctx.StatusCode(iris.StatusBadRequest)
-		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
-		return
-	}
+	// err = s.wechat.SendTemplateMsg(req.Endpoint, req.Touser, req.TemplateID, req.MiniProgram.Page, req.FormID, req.Data)
+	// if err != nil {
+	// 	ctx.StatusCode(iris.StatusBadRequest)
+	// 	_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+	// 	return
+	// }
 
 	ctx.StatusCode(iris.StatusOK)
 }
@@ -61,19 +60,19 @@ func (s *Service) postCustomerImage(ctx iris.Context) {
 		return
 	}
 
-	mediaID, err := s.wechat.UploadImage(req.Endpoint, req.Path)
-	if err != nil {
-		ctx.StatusCode(iris.StatusBadRequest)
-		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
-		return
-	}
+	// mediaID, err := s.wechat.UploadImage(req.Endpoint, req.Path)
+	// if err != nil {
+	// 	ctx.StatusCode(iris.StatusBadRequest)
+	// 	_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+	// 	return
+	// }
 
-	ctx.StatusCode(iris.StatusOK)
-	body, _ := json.Marshal(CustomerImageResp{
-		MediaID: mediaID,
-	})
+	// ctx.StatusCode(iris.StatusOK)
+	// body, _ := json.Marshal(CustomerImageResp{
+	// 	MediaID: mediaID,
+	// })
 
-	_, _ = ctx.Write(body)
+	// _, _ = ctx.Write(body)
 }
 
 // 发送自定义客服消息
@@ -109,12 +108,12 @@ func (s *Service) postEnterpriseMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.wechat.SendEnterpriseGroupMsg(req.Endpoint, req.ChatID, req.MsgType, req.Safe, req.Text.Content)
-	if err != nil {
-		ctx.StatusCode(iris.StatusBadRequest)
-		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
-		return
-	}
+	// err = s.wechat.SendEnterpriseGroupMsg(req.Endpoint, req.ChatID, req.MsgType, req.Safe, req.Text.Content)
+	// if err != nil {
+	// 	ctx.StatusCode(iris.StatusBadRequest)
+	// 	_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+	// 	return
+	// }
 
 	ctx.StatusCode(iris.StatusOK)
 }
@@ -130,7 +129,7 @@ func (s *Service) postMPSubMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.wechat.SendMPSubMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.Data)
+	err = s.wechat.SendMiniProgramSubscribeMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.Data)
 	if err != nil {
 		ctx.StatusCode(iris.StatusBadRequest)
 		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
