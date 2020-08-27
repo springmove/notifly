@@ -24,7 +24,7 @@ type ReqBotMsg struct {
 
 // 企业微信群机器人消息推送
 func (s *Service) PostGroupBotMsg(req *ReqBotMsg) error {
-	url := fmt.Sprintf("http://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s", req.BotKey)
+	url := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s", req.BotKey)
 	body, _ := json.Marshal(req.BotMsgContent)
 	r := s.http.R().SetBody(body).SetHeader("content-type", "application/json")
 	resp, err := r.Post(url)

@@ -33,5 +33,5 @@ type EnterpriseMsg struct {
 
 type MPSubscribeMsg struct {
 	Endpoint string `json:"endpoint"`
-	wechat.MsgSub
+	// wechat.MsgSub
 }

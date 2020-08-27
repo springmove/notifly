@@ -30,7 +30,7 @@ func (s *Service) SendMiniProgramSubscribeMsg(req *ReqMiniProgramSubscribeMsg) e
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=%s", req.AccessToken)
 
 	body, _ := json.Marshal(req.SubscribeMsg)
-	r := s.http.R().SetBody(&body).SetHeader("content-type", "application/json")
+	r := s.http.R().SetBody(body).SetHeader("content-type", "application/json")
 
 	msgresp := MsgResp{}
 	resp, err := r.Post(url)

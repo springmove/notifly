@@ -129,12 +129,12 @@ func (s *Service) postMPSubMsg(ctx iris.Context) {
 		return
 	}
 
-	err = s.wechat.SendMiniProgramSubscribeMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.Data)
-	if err != nil {
-		ctx.StatusCode(iris.StatusBadRequest)
-		_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
-		return
-	}
+	// err = s.wechat.SendMiniProgramSubscribeMsg(req.Endpoint, req.Touser, req.TemplateID, req.Page, req.Data)
+	// if err != nil {
+	// 	ctx.StatusCode(iris.StatusBadRequest)
+	// 	_, _ = ctx.Write(sptty.NewRequestError(NOTIFY_ERR_MSG, err.Error()))
+	// 	return
+	// }
 
 	ctx.StatusCode(iris.StatusOK)
 }
