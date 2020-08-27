@@ -75,7 +75,7 @@ func TestBotMsg(t *testing.T) {
 func TestMiniProgramSubscribeMsg(t *testing.T) {
 	srv := getSrv()
 
-	accessToken, err := srv.GetAccessToken("wx77d83a2aa6c324ab", "2c6ecb6fe8a0394715704149a6afc56b")
+	accessToken, err := srv.GetAccessToken("", "")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
