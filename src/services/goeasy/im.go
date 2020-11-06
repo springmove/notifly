@@ -1,12 +1,12 @@
 package goeasy
 
 import (
-	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/linshenqi/sptty"
 	"gopkg.in/resty.v1"
-	"net/http"
 )
 
 type IM struct {
@@ -39,7 +39,7 @@ func (s *IM) PostMessage(msg *base.IMMessage) error {
 	}
 
 	if resp.StatusCode() != http.StatusOK {
-		return errors.New(fmt.Sprintf("PostMessage Failed: %d", resp.StatusCode()))
+		return fmt.Errorf("PostMessage Failed: %d, %+v", resp.StatusCode(), string(resp.Body()))
 	}
 
 	return nil
