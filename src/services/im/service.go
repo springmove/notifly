@@ -17,7 +17,7 @@ type Service struct {
 	providers map[string]base.IIMProvider
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}

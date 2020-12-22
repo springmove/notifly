@@ -2,6 +2,7 @@ package email
 
 import (
 	"errors"
+
 	"github.com/linshenqi/sptty"
 	"gopkg.in/gomail.v2"
 )
@@ -22,7 +23,7 @@ type Service struct {
 	dialers map[string]*gomail.Dialer
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}

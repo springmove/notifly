@@ -2,10 +2,11 @@ package api
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/linshenqi/notifly/src/services/notify"
 	"github.com/linshenqi/notifly/src/services/wechat"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestCustomerMsg(t *testing.T) {
@@ -14,7 +15,7 @@ func TestCustomerMsg(t *testing.T) {
 	}
 
 	notifly := Notifly{}
-	notifly.InitService(&cfg)
+	_ = notifly.InitService(&cfg)
 
 	mediaID, err := notifly.PostCustomerImage(&notify.CustomerImage{
 		Endpoint: "mp",
@@ -61,7 +62,7 @@ func TestTemplateMsg(t *testing.T) {
 	}
 
 	notifly := Notifly{}
-	notifly.InitService(&cfg)
+	_ = notifly.InitService(&cfg)
 
 	err := notifly.PostTemplateMsg(&notify.TemplateMsg{
 		Endpoint: "mp",

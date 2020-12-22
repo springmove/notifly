@@ -2,6 +2,7 @@ package sms
 
 import (
 	"errors"
+
 	"github.com/linshenqi/notifly/src/services/aliyun"
 	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/linshenqi/notifly/src/services/twilio"
@@ -17,7 +18,7 @@ type Service struct {
 	providers map[string]base.ISMSProvider
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}

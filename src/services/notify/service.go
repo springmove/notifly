@@ -13,7 +13,7 @@ type Service struct {
 	wechat *wechat.Service
 }
 
-func (s *Service) Init(app sptty.Sptty) error {
+func (s *Service) Init(app sptty.ISptty) error {
 	s.wechat = app.GetService(wechat.ServiceName).(*wechat.Service)
 
 	app.AddRoute("POST", "/customer-image", s.postCustomerImage)
