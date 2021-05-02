@@ -2,6 +2,7 @@ package twilio
 
 import (
 	"errors"
+
 	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/sfreiberg/gotwilio"
 )
@@ -30,7 +31,12 @@ func (s *SMS) Send(req base.Request) error {
 		return errors.New("Client Not Found ")
 	}
 
-	resp, ex, err := client.SendSMS(ep.HostNum, req.Mobile, req.Content, "", "")
+	content := ""
+	for _, v := range req.Content {
+		content = v
+		break
+	}
+	resp, ex, err := client.SendSMS(ep.HostNum, req.Mobile, content, "", "")
 	if err != nil {
 		return err
 	}

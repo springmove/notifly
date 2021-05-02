@@ -5,8 +5,9 @@ import (
 )
 
 const (
-	Aliyun = "aliyun"
-	Twilio = "twilio"
+	Aliyun    = "aliyun"
+	Twilio    = "twilio"
+	RongCloud = "rongcloud"
 )
 
 type Endpoint struct {
@@ -20,10 +21,10 @@ type Endpoint struct {
 }
 
 type Request struct {
-	Provider string `json:"provider"`
-	Endpoint string `json:"endpoint"`
-	Mobile   string `json:"mobile"`
-	Content  string `json:"content"`
+	Provider string            `json:"provider"`
+	Endpoint string            `json:"endpoint"`
+	Mobile   string            `json:"mobile"`
+	Content  map[string]string `json:"content"`
 }
 
 type ISMSProvider interface {

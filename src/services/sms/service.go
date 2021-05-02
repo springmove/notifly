@@ -3,9 +3,10 @@ package sms
 import (
 	"errors"
 
-	"github.com/linshenqi/notifly/src/services/aliyun"
 	"github.com/linshenqi/notifly/src/services/base"
-	"github.com/linshenqi/notifly/src/services/twilio"
+	"github.com/linshenqi/notifly/src/services/sms/vendors/aliyun"
+	"github.com/linshenqi/notifly/src/services/sms/vendors/rongcloud"
+	"github.com/linshenqi/notifly/src/services/sms/vendors/twilio"
 	"github.com/linshenqi/sptty"
 )
 
@@ -90,7 +91,8 @@ func (s *Service) getEndpoint(endpoint string) (*base.Endpoint, error) {
 
 func (s *Service) setupProviders() {
 	s.providers = map[string]base.ISMSProvider{
-		base.Aliyun: &aliyun.SMS{},
-		base.Twilio: &twilio.SMS{},
+		base.Aliyun:    &aliyun.SMS{},
+		base.Twilio:    &twilio.SMS{},
+		base.RongCloud: &rongcloud.SMS{},
 	}
 }

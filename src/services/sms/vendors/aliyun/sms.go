@@ -3,6 +3,7 @@ package aliyun
 import (
 	"encoding/json"
 	"errors"
+
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
 	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/linshenqi/sptty"
@@ -42,7 +43,9 @@ func (s *SMS) Send(req base.Request) error {
 	request.PhoneNumbers = req.Mobile
 	request.SignName = ep.SignName
 	request.TemplateCode = ep.TemplateCode
-	request.TemplateParam = req.Content
+
+	content, _ := json.Marshal(req.Content)
+	request.TemplateParam = string(content)
 
 	resp, err := client.SendSms(request)
 	if err != nil {
