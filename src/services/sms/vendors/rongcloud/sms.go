@@ -3,6 +3,7 @@ package rongcloud
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"strings"
 	"time"
@@ -32,7 +33,7 @@ func (s *SMS) Send(req base.Request) error {
 		return err
 	}
 
-	nonce := sptty.GenerateUID()[10:]
+	nonce := fmt.Sprintf("%d", rand.Intn(9999))
 	ts := fmt.Sprintf("%d", time.Now().UnixNano()/1e6)
 	sign := generateSign(ep.AppSecret, nonce, ts)
 
@@ -44,9 +45,10 @@ func (s *SMS) Send(req base.Request) error {
 		SetHeader("Signature", sign)
 
 	vals := content2ValuesFormat(req.Content)
-	url := fmt.Sprintf("http://api.sms.ronghub.com/sendNotify.json?mobile=%s&templateId=%s&region=%s&%s", req.Mobile, ep.TemplateCode, ep.Region, vals)
+	url := "http://api.sms.ronghub.com/sendNotify.json"
+	body := fmt.Sprintf("mobile=%s&templateId=%s&region=%s&%s", req.Mobile, ep.TemplateCode, ep.Region, vals)
 
-	resp, err := r.Post(url)
+	resp, err := r.SetBody(body).Post(url)
 	if err != nil {
 		return err
 	}
@@ -79,6 +81,6 @@ func content2ValuesFormat(content map[string]string) string {
 }
 
 func generateSign(secret string, nonce string, ts string) string {
-	sign := sptty.Sha1(fmt.Sprintf("%s.%s.%s", secret, nonce, ts))
+	sign := sptty.Sha1(fmt.Sprintf("%s%s%s", secret, nonce, ts))
 	return sign
 }

@@ -19,12 +19,12 @@ func getService() *Service {
 			HostNum:   "+12055761160",
 		},
 		endpointCN: {
-			Provider:     base.Aliyun,
-			AppKey:       "LTAI4FqKBiAkx65UoYqx8fiS",
-			AppSecret:    "ZVJbGx3TDQPYHMNmlHtLjQySisu5dX",
-			Region:       "cn-hangzhou",
+			Provider:     base.RongCloud,
+			AppKey:       "",
+			AppSecret:    "",
+			Region:       "86",
 			SignName:     "Ashibro",
-			TemplateCode: "SMS_183261852",
+			TemplateCode: "bT0pus3s4CD8w4LrgZ_g2e",
 		},
 	}}}
 
