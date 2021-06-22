@@ -2,17 +2,15 @@ package sms
 
 import (
 	"errors"
-
 	"github.com/linshenqi/notifly/src/services/base"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/aliyun"
+	"github.com/linshenqi/notifly/src/services/sms/vendors/huawei"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/rongcloud"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/twilio"
 	"github.com/linshenqi/sptty"
 )
 
-const (
-	ServiceName = "sms"
-)
+const ()
 
 type Service struct {
 	cfg       Config
@@ -39,7 +37,7 @@ func (s *Service) Enable() bool {
 }
 
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceSMS
 }
 
 func (s *Service) Send(req base.Request) error {
@@ -94,5 +92,6 @@ func (s *Service) setupProviders() {
 		base.Aliyun:    &aliyun.SMS{},
 		base.Twilio:    &twilio.SMS{},
 		base.RongCloud: &rongcloud.SMS{},
+		base.Huawei:    &huawei.SMS{},
 	}
 }

@@ -25,16 +25,21 @@ sms:
   endpoints:
     ashibro_cn:
       provider: aliyun
-      app_key: 123
+      app_key: 1
       app_secret: 123
       region: cn-hangzhou
       sign_name: Ashibro
       template_code: 123
     ashibro:
       provider: twilio
-      app_key: 123
+      app_key: 1
       app_secret: 123
       host_num: +1123124124
+    huawei_test:
+      provider: huawei
+      app_key: 1
+      app_secret: 123
+      template_code: 123
 
 email:
   endpoints:

@@ -8,7 +8,16 @@ const (
 	Aliyun    = "aliyun"
 	Twilio    = "twilio"
 	RongCloud = "rongcloud"
+	Huawei    = "huawei"
 )
+
+const (
+	ServiceSMS = "sms"
+)
+
+type ISMSService interface {
+	Send(req Request) error
+}
 
 type Endpoint struct {
 	Provider     string `yaml:"provider"`
