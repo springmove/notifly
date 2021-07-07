@@ -4,12 +4,13 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"github.com/linshenqi/notifly/src/services/base"
-	"github.com/linshenqi/sptty"
-	"gopkg.in/resty.v1"
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/sptty"
+	"gopkg.in/resty.v1"
 )
 
 type SMS struct {
@@ -46,7 +47,8 @@ func (s *SMS) Send(req base.Request) error {
 
 	//发送请求
 	url := fmt.Sprintf("https://rtcsms.cn-north-1.myhuaweicloud.com:10743/sms/batchSendSms/v1")
-	body := fmt.Sprintf(`from=%v&to=%v&templateId=%v&templateParas=["%v"]`, from, to, templateId, templateParas)
+	body := fmt.Sprintf(`from=%v&to=%v&templateId=%v&templateParas="[\"%v\"]"`, from, to, templateId, templateParas)
+
 	resp, err := r.SetBody(body).Post(url)
 	if resp.StatusCode() != http.StatusOK {
 		return fmt.Errorf("%+v", resp)

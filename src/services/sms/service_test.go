@@ -44,6 +44,7 @@ func getService() *Service {
 
 func TestService(t *testing.T) {
 	sms := getService()
+
 	//if err := sms.Send(base.Request{
 	//	Endpoint: endpoint,
 	//	Mobile:   "+8618049956365",
@@ -56,9 +57,9 @@ func TestService(t *testing.T) {
 
 	if err := sms.Send(base.Request{
 		Endpoint: endpointHuawei,
-		Mobile:   "11111111111",
+		Mobile:   "18621182783",
 		Content: map[string]string{
-			"code": "321456",
+			"code": "012345",
 		},
 	}); err != nil {
 		fmt.Println(err.Error())
