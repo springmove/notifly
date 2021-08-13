@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/base"
 )
 
-var endpoint = "ashibro"
-var endpointCN = "ashibro_cn"
+// var endpoint = "ashibro"
+// var endpointCN = "ashibro_cn"
 var endpointHuawei = "huawei"
 
 func getService() *Service {

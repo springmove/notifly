@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
-	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/sptty"
 )
 

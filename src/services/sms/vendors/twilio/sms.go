@@ -3,7 +3,7 @@ package twilio
 import (
 	"errors"
 
-	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/sfreiberg/gotwilio"
 )
 

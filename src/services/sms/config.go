@@ -1,6 +1,6 @@
 package sms
 
-import "github.com/linshenqi/notifly/src/services/base"
+import "github.com/linshenqi/notifly/src/base"
 
 type Config struct {
 	Endpoints map[string]base.Endpoint `yaml:"endpoints"`

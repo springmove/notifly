@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/sptty"
 	"gopkg.in/resty.v1"
 )

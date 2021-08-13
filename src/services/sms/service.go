@@ -2,7 +2,7 @@ package sms
 
 import (
 	"errors"
-	"github.com/linshenqi/notifly/src/services/base"
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/aliyun"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/huawei"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/rongcloud"

@@ -3,8 +3,9 @@ package im
 import (
 	"errors"
 	"fmt"
-	"github.com/linshenqi/notifly/src/services/base"
-	"github.com/linshenqi/notifly/src/services/goeasy"
+
+	"github.com/linshenqi/notifly/src/base"
+	"github.com/linshenqi/notifly/src/services/im/vendors/goeasy"
 	"github.com/linshenqi/sptty"
 )
 
