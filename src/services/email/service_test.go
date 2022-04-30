@@ -3,6 +3,8 @@ package email
 import (
 	"fmt"
 	"testing"
+
+	"github.com/linshenqi/notifly/src/base"
 )
 
 var endpoint = "ashibro"
@@ -23,7 +25,7 @@ func getService() *Service {
 
 func TestService(t *testing.T) {
 	email := getService()
-	if err := email.Send(Request{
+	if err := email.Send(&base.ReqEmail{
 		Endpoint: endpoint,
 		MailTo:   []string{"linshenqi@outlook.com"},
 		Subject:  "test",

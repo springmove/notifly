@@ -6,15 +6,14 @@ import (
 	"net/http"
 
 	"github.com/kataras/iris/core/errors"
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/sptty"
 	"gopkg.in/resty.v1"
 )
 
-const (
-	ServiceName = "wechat"
-)
-
 type Service struct {
+	sptty.BaseService
+
 	http *resty.Client
 }
 
@@ -25,16 +24,8 @@ func (s *Service) Init(app sptty.ISptty) error {
 	return nil
 }
 
-func (s *Service) Release() {
-
-}
-
-func (s *Service) Enable() bool {
-	return true
-}
-
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceWechatNotify
 }
 
 // func (s *Service) getEnterpriseAccessToken(endpoint string) (string, error) {

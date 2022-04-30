@@ -1,6 +1,7 @@
 package notify
 
 import (
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/notifly/src/services/wechat"
 	"github.com/linshenqi/sptty"
 )
@@ -14,7 +15,7 @@ type Service struct {
 }
 
 func (s *Service) Init(app sptty.ISptty) error {
-	s.wechat = app.GetService(wechat.ServiceName).(*wechat.Service)
+	s.wechat = app.GetService(base.ServiceWechatNotify).(*wechat.Service)
 
 	app.AddRoute("POST", "/customer-image", s.postCustomerImage)
 	app.AddRoute("POST", "/customer-msgs", s.postCustomerMsg)

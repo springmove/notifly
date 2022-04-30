@@ -55,7 +55,7 @@ func TestService(t *testing.T) {
 	//	fmt.Println(err.Error())
 	//}
 
-	if err := sms.Send(base.Request{
+	if err := sms.Send(&base.ReqSMS{
 		Endpoint: endpointHuawei,
 		Mobile:   "18621182783",
 		Content: map[string]string{

@@ -3,22 +3,14 @@ package email
 import (
 	"errors"
 
+	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/sptty"
 	"gopkg.in/gomail.v2"
 )
 
-const (
-	ServiceName = "email"
-)
-
-type Request struct {
-	Endpoint string   `json:"endpoint"`
-	MailTo   []string `json:"mail_to"`
-	Subject  string   `json:"subject"`
-	Body     string   `json:"body"`
-}
-
 type Service struct {
+	sptty.BaseService
+
 	cfg     Config
 	dialers map[string]*gomail.Dialer
 }
@@ -32,16 +24,8 @@ func (s *Service) Init(app sptty.ISptty) error {
 	return nil
 }
 
-func (s *Service) Release() {
-
-}
-
-func (s *Service) Enable() bool {
-	return true
-}
-
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceEmail
 }
 
 func (s *Service) load() {
@@ -61,7 +45,7 @@ func (s *Service) getEndpoint(endpoint string) (*Endpoint, error) {
 	return &ep, nil
 }
 
-func (s *Service) Send(req Request) error {
+func (s *Service) Send(req *base.ReqEmail) error {
 
 	endpoint, err := s.getEndpoint(req.Endpoint)
 	if err != nil {

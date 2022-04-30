@@ -3,8 +3,15 @@ package base
 import "errors"
 
 const (
+	ServiceIM = "im"
+
 	IMGoEasy = "goeasy"
 )
+
+type IServiceIM interface {
+	PostMessage(providerName string, msg *IMMessage) error
+	GetHostByRegion(providerName string, code string) (string, error)
+}
 
 type IMEndpoint struct {
 	Provider string   `yaml:"provider"`

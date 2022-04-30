@@ -2,6 +2,7 @@ package sms
 
 import (
 	"errors"
+
 	"github.com/linshenqi/notifly/src/base"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/aliyun"
 	"github.com/linshenqi/notifly/src/services/sms/vendors/huawei"
@@ -10,9 +11,9 @@ import (
 	"github.com/linshenqi/sptty"
 )
 
-const ()
-
 type Service struct {
+	sptty.BaseService
+
 	cfg       Config
 	providers map[string]base.ISMSProvider
 }
@@ -28,19 +29,11 @@ func (s *Service) Init(app sptty.ISptty) error {
 	return nil
 }
 
-func (s *Service) Release() {
-
-}
-
-func (s *Service) Enable() bool {
-	return true
-}
-
 func (s *Service) ServiceName() string {
 	return base.ServiceSMS
 }
 
-func (s *Service) Send(req base.Request) error {
+func (s *Service) Send(req *base.ReqSMS) error {
 	endpoint, err := s.getEndpoint(req.Endpoint)
 	if err != nil {
 		return err

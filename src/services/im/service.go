@@ -9,11 +9,9 @@ import (
 	"github.com/linshenqi/sptty"
 )
 
-const (
-	ServiceName = "im"
-)
-
 type Service struct {
+	sptty.BaseService
+
 	cfg       Config
 	providers map[string]base.IIMProvider
 }
@@ -28,16 +26,8 @@ func (s *Service) Init(app sptty.ISptty) error {
 	return nil
 }
 
-func (s *Service) Release() {
-
-}
-
-func (s *Service) Enable() bool {
-	return true
-}
-
 func (s *Service) ServiceName() string {
-	return ServiceName
+	return base.ServiceIM
 }
 
 func (s *Service) initProviders() {

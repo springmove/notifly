@@ -27,7 +27,7 @@ func (s *SMS) Init() {
 	s.http = sptty.CreateHttpClient(sptty.DefaultHttpClientConfig())
 }
 
-func (s *SMS) Send(req base.Request) error {
+func (s *SMS) Send(req *base.ReqSMS) error {
 	ep, err := s.GetEndpoint(req.Endpoint)
 	if err != nil {
 		return err

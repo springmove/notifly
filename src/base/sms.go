@@ -15,8 +15,8 @@ const (
 	ServiceSMS = "sms"
 )
 
-type ISMSService interface {
-	Send(req Request) error
+type IServiceSMS interface {
+	Send(req *ReqSMS) error
 }
 
 type Endpoint struct {
@@ -29,7 +29,7 @@ type Endpoint struct {
 	HostNum      string `yaml:"host_num"`
 }
 
-type Request struct {
+type ReqSMS struct {
 	Provider string            `json:"provider"`
 	Endpoint string            `json:"endpoint"`
 	Mobile   string            `json:"mobile"`
@@ -37,7 +37,7 @@ type Request struct {
 }
 
 type ISMSProvider interface {
-	Send(req Request) error
+	Send(req *ReqSMS) error
 	Init()
 	GetEndpoint(name string) (*Endpoint, error)
 	AddEndpoint(name string, endpoint Endpoint)
