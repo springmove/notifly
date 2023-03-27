@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/linshenqi/notifly/src/services/notify"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/services/notify"
+	"github.com/springmove/sptty"
 	"gopkg.in/resty.v1"
 	"net/http"
 )

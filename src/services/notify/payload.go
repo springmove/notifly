@@ -1,6 +1,6 @@
 package notify
 
-import "github.com/linshenqi/notifly/src/services/wechat"
+import "github.com/springmove/notifly/src/services/wechat"
 
 const (
 	NOTIFY_ERR_REQ = "0001"

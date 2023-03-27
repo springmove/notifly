@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/linshenqi/notifly/src/services/notify"
-	"github.com/linshenqi/notifly/src/services/wechat"
+	"github.com/springmove/notifly/src/services/notify"
+	"github.com/springmove/notifly/src/services/wechat"
 	"github.com/stretchr/testify/assert"
 )
 

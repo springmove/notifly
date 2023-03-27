@@ -1,8 +1,8 @@
 package sms
 
 import (
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/sptty"
 )
 
 type Config struct {

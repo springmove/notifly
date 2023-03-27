@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/sptty"
 )
 
 type SMS struct {

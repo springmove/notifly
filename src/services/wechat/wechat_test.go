@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/sptty"
 )
 
 func TestWechat(t *testing.T) {

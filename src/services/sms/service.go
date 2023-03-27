@@ -3,12 +3,12 @@ package sms
 import (
 	"errors"
 
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/notifly/src/services/sms/vendors/aliyun"
-	"github.com/linshenqi/notifly/src/services/sms/vendors/huawei"
-	"github.com/linshenqi/notifly/src/services/sms/vendors/rongcloud"
-	"github.com/linshenqi/notifly/src/services/sms/vendors/twilio"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/notifly/src/services/sms/vendors/aliyun"
+	"github.com/springmove/notifly/src/services/sms/vendors/huawei"
+	"github.com/springmove/notifly/src/services/sms/vendors/rongcloud"
+	"github.com/springmove/notifly/src/services/sms/vendors/twilio"
+	"github.com/springmove/sptty"
 )
 
 type Service struct {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/linshenqi/notifly/src/base"
+	"github.com/springmove/notifly/src/base"
 )
 
 var endpoint = "ashibro"

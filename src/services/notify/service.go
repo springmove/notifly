@@ -1,9 +1,9 @@
 package notify
 
 import (
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/notifly/src/services/wechat"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/notifly/src/services/wechat"
+	"github.com/springmove/sptty"
 )
 
 const (

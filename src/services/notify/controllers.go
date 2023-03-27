@@ -2,7 +2,7 @@ package notify
 
 import (
 	"github.com/kataras/iris/v12"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/sptty"
 )
 
 // 发送模板消息

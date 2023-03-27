@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/notifly/src/services/im/vendors/goeasy"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/notifly/src/services/im/vendors/goeasy"
+	"github.com/springmove/sptty"
 )
 
 type Service struct {

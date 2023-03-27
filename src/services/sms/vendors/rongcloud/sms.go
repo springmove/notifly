@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/linshenqi/notifly/src/base"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/base"
+	"github.com/springmove/sptty"
 	"gopkg.in/resty.v1"
 )
 

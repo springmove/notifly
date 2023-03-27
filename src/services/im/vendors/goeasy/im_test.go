@@ -2,7 +2,7 @@ package goeasy
 
 import (
 	"fmt"
-	"github.com/linshenqi/notifly/src/base"
+	"github.com/springmove/notifly/src/base"
 	"testing"
 )
 

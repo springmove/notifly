@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	"github.com/linshenqi/notifly/src/services/email"
-	"github.com/linshenqi/notifly/src/services/notify"
-	"github.com/linshenqi/notifly/src/services/sms"
-	"github.com/linshenqi/notifly/src/services/wechat"
-	"github.com/linshenqi/sptty"
+	"github.com/springmove/notifly/src/services/email"
+	"github.com/springmove/notifly/src/services/notify"
+	"github.com/springmove/notifly/src/services/sms"
+	"github.com/springmove/notifly/src/services/wechat"
+	"github.com/springmove/sptty"
 )
 
 func main() {
