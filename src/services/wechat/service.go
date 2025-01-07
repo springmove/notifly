@@ -143,7 +143,7 @@ func (s *Service) SendMPTemplateMsg(token string, openid string, templateid stri
 
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=%s", token)
 
-	body := MPMsgTemplate{
+	body := base.MPMsgTemplate{
 		Touser:     openid,
 		TemplateID: templateid,
 		Data:       data,
@@ -153,7 +153,7 @@ func (s *Service) SendMPTemplateMsg(token string, openid string, templateid stri
 
 	resp, err := r.Post(url)
 
-	msgresp := MsgResp{}
+	msgresp := base.MsgResp{}
 
 	if err != nil {
 		return err
@@ -257,7 +257,7 @@ func (s *Service) SendCustomerMsg(token string, body interface{}) error {
 
 	resp, err := r.Post(url)
 
-	msgresp := MsgResp{}
+	msgresp := base.MsgResp{}
 
 	if err != nil {
 		return err

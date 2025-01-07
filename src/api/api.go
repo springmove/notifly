@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/springmove/notifly/src/services/notify"
+	"net/http"
+
+	"github.com/springmove/notifly/src/base"
 	"github.com/springmove/sptty"
 	"gopkg.in/resty.v1"
-	"net/http"
 )
 
 type Config struct {
@@ -27,7 +28,7 @@ func (s *Notifly) InitService(cfg *Config) error {
 	return nil
 }
 
-func (s *Notifly) PostCustomerMsg(req *notify.CustomerMsg) error {
+func (s *Notifly) PostCustomerMsg(req *base.ReqCustomerMsg) error {
 	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
 	url := fmt.Sprintf("%s/api/v1/customer-msgs", s.cfg.Url)
 	resp, err := r.Post(url)
@@ -43,7 +44,7 @@ func (s *Notifly) PostCustomerMsg(req *notify.CustomerMsg) error {
 	}
 }
 
-func (s *Notifly) PostTemplateMsg(req *notify.TemplateMsg) error {
+func (s *Notifly) PostTemplateMsg(req *base.TemplateMsg) error {
 	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
 	url := fmt.Sprintf("%s/api/v1/template-msgs", s.cfg.Url)
 	resp, err := r.Post(url)
@@ -59,7 +60,7 @@ func (s *Notifly) PostTemplateMsg(req *notify.TemplateMsg) error {
 	}
 }
 
-func (s *Notifly) PostEnterpriseMsg(req *notify.EnterpriseMsg) error {
+func (s *Notifly) PostEnterpriseMsg(req *base.EnterpriseMsg) error {
 	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
 	url := fmt.Sprintf("%s/api/v1/enterprise-msgs", s.cfg.Url)
 	resp, err := r.Post(url)
@@ -75,12 +76,12 @@ func (s *Notifly) PostEnterpriseMsg(req *notify.EnterpriseMsg) error {
 	}
 }
 
-func (s *Notifly) PostCustomerImage(req *notify.CustomerImage) (string, error) {
+func (s *Notifly) PostCustomerImage(req *base.CustomerImage) (string, error) {
 	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
 	url := fmt.Sprintf("%s/api/v1/customer-image", s.cfg.Url)
 	resp, err := r.Post(url)
 
-	image := notify.CustomerImageResp{}
+	image := base.CustomerImageResp{}
 	if err != nil {
 		return "", err
 	} else {
@@ -93,7 +94,7 @@ func (s *Notifly) PostCustomerImage(req *notify.CustomerImage) (string, error) {
 	}
 }
 
-func (s *Notifly) PostMPSubscribeMsg(req *notify.MPSubscribeMsg) error {
+func (s *Notifly) PostMPSubscribeMsg(req *base.MPSubscribeMsg) error {
 	r := s.http.R().SetBody(req).SetHeader("content-type", "application/json")
 	url := fmt.Sprintf("%s/api/v1/mp-subscribe-msgs", s.cfg.Url)
 	resp, err := r.Post(url)

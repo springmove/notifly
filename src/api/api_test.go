@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/springmove/notifly/src/services/notify"
-	"github.com/springmove/notifly/src/services/wechat"
+	"github.com/springmove/notifly/src/base"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,21 +16,21 @@ func TestCustomerMsg(t *testing.T) {
 	notifly := Notifly{}
 	_ = notifly.InitService(&cfg)
 
-	mediaID, err := notifly.PostCustomerImage(&notify.CustomerImage{
+	mediaID, err := notifly.PostCustomerImage(&base.CustomerImage{
 		Endpoint: "mp",
 		Path:     "/home/linshenqi/Pictures/wyy_qrcode.jpg",
 	})
 
 	assert.Nil(t, err)
 
-	err = notifly.PostCustomerMsg(&notify.CustomerMsg{
+	err = notifly.PostCustomerMsg(&base.ReqCustomerMsg{
 		Endpoint: "mp",
-		Body: wechat.CustomerMsgImage{
-			CustomerMsg: wechat.CustomerMsg{
+		Body: base.CustomerMsgImage{
+			CustomerMsg: base.CustomerMsg{
 				ToUser:  "oHdMv5aqHTw56H56G4dfedPEGRVk",
 				MsgType: "image",
 			},
-			Image: wechat.MsgImage{
+			Image: base.MsgImage{
 				MediaID: mediaID,
 			},
 		},
@@ -64,13 +63,13 @@ func TestTemplateMsg(t *testing.T) {
 	notifly := Notifly{}
 	_ = notifly.InitService(&cfg)
 
-	err := notifly.PostTemplateMsg(&notify.TemplateMsg{
+	err := notifly.PostTemplateMsg(&base.TemplateMsg{
 		Endpoint: "mp",
-		MsgTemplate: wechat.MsgTemplate{
-			Touser:     "oHdMv5aqHTw56H56G4dfedPEGRVk",
-			TemplateID: "W5OwhKlQCWy7Cf9s9MgxO-Ytsk86MQ_KJYinYBQLsT4",
+		MsgTemplate: base.MsgTemplate{
+			Touser:     "",
+			TemplateID: "",
 			FormID:     "",
-			Data: map[string]wechat.TemplateValue{
+			Data: map[string]base.TemplateValue{
 				"keyword1": {
 					Value: "通过",
 				},

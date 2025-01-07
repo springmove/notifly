@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/springmove/notifly/src/base"
 )
 
 type MsgValue struct {
@@ -32,7 +34,7 @@ func (s *Service) SendMiniProgramSubscribeMsg(req *ReqMiniProgramSubscribeMsg) e
 	body, _ := json.Marshal(req.SubscribeMsg)
 	r := s.http.R().SetBody(body).SetHeader("content-type", "application/json")
 
-	msgresp := MsgResp{}
+	msgresp := base.MsgResp{}
 	resp, err := r.Post(url)
 	if err != nil {
 		return err

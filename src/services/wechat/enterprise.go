@@ -4,26 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/springmove/notifly/src/base"
 )
-
-const (
-	BotMsgTypeText     = "text"
-	BotMsgTypeMarkdown = "markdown"
-)
-
-type BotMsgContent struct {
-	MsgType  string   `json:"msgtype"`
-	Text     *Content `json:"text,omitempty"`
-	Markdown *Content `json:"markdown,omitempty"`
-}
-
-type ReqBotMsg struct {
-	BotKey string
-	BotMsgContent
-}
 
 // 企业微信群机器人消息推送
-func (s *Service) PostGroupBotMsg(req *ReqBotMsg) error {
+func (s *Service) PostGroupBotMsg(req *base.ReqBotMsg) error {
 	url := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s", req.BotKey)
 	body, _ := json.Marshal(req.BotMsgContent)
 	r := s.http.R().SetBody(body).SetHeader("content-type", "application/json")

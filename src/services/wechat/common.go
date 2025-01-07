@@ -3,10 +3,12 @@ package wechat
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/springmove/notifly/src/base"
 )
 
 func (s *Service) GetAccessToken(appID string, appSecret string) (string, error) {
-	tr := TokenResp{}
+	tr := base.TokenResp{}
 
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
 		appID,

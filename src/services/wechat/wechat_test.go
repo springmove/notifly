@@ -5,15 +5,16 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/springmove/notifly/src/base"
 	"github.com/springmove/sptty"
 )
 
 func TestWechat(t *testing.T) {
-	body, _ := json.Marshal(ReqBotMsg{
+	body, _ := json.Marshal(base.ReqBotMsg{
 		BotKey: "wef",
-		BotMsgContent: BotMsgContent{
-			MsgType: BotMsgTypeText,
-			Markdown: &Content{
+		BotMsgContent: base.BotMsgContent{
+			MsgType: base.BotMsgTypeText,
+			Markdown: &base.Content{
 				Content: "awef",
 			},
 		},
@@ -47,11 +48,11 @@ func getSrv() *Service {
 
 func TestBotMsg(t *testing.T) {
 	srv := getSrv()
-	if err := srv.PostGroupBotMsg(&ReqBotMsg{
-		BotKey: "87b201af-0a79-4904-827b-f0b85a7e286d",
-		BotMsgContent: BotMsgContent{
-			MsgType: BotMsgTypeText,
-			Text: &Content{
+	if err := srv.PostGroupBotMsg(&base.ReqBotMsg{
+		BotKey: "0a9ee1c9-7db0-47ac-9c0b-ab0b69b6155b",
+		BotMsgContent: base.BotMsgContent{
+			MsgType: base.BotMsgTypeText,
+			Text: &base.Content{
 				Content: "test text",
 			},
 		},
@@ -59,11 +60,11 @@ func TestBotMsg(t *testing.T) {
 		fmt.Println(err.Error())
 	}
 
-	if err := srv.PostGroupBotMsg(&ReqBotMsg{
-		BotKey: "87b201af-0a79-4904-827b-f0b85a7e286d",
-		BotMsgContent: BotMsgContent{
-			MsgType: BotMsgTypeMarkdown,
-			Markdown: &Content{
+	if err := srv.PostGroupBotMsg(&base.ReqBotMsg{
+		BotKey: "0a9ee1c9-7db0-47ac-9c0b-ab0b69b6155b",
+		BotMsgContent: base.BotMsgContent{
+			MsgType: base.BotMsgTypeMarkdown,
+			Markdown: &base.Content{
 				Content: "*test markdown*",
 			},
 		},
