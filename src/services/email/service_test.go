@@ -7,29 +7,35 @@ import (
 	"github.com/springmove/notifly/src/base"
 )
 
-var endpoint = "ashibro"
+var email base.IServiceEmail
 
-func getService() *Service {
-	email := Service{cfg: Config{Endpoints: map[string]Endpoint{
-		endpoint: {
-			Author: "notify@ashibro.com",
-			Pwd:    "css199520.",
-			Host:   "smtp.mxhichina.com",
-			Port:   25,
-		},
-	}}}
+func getService() base.IServiceEmail {
 
-	email.load()
-	return &email
+	if email == nil {
+		srv := Service{cfg: Config{Configs: []base.EmailEntry{
+			{
+				Author: "kqdigital",
+				Sender: "linshenqi@springmove.net",
+				Pwd:    "",
+				Host:   "smtp.exmail.qq.com",
+				Port:   465,
+			},
+		}}}
+
+		_ = srv.initClients()
+
+		email = &srv
+	}
+
+	return email
 }
 
 func TestService(t *testing.T) {
 	email := getService()
-	if err := email.Send(&base.ReqEmail{
-		Endpoint: endpoint,
-		MailTo:   []string{"linshenqi@outlook.com"},
-		Subject:  "test",
-		Body:     "ashibro test",
+	if err := email.EmailClient().Send(&base.ReqEmail{
+		MailTo:  []string{"linshenqi@outlook.com"},
+		Subject: "kqdigital into test",
+		Body:    "kqdigital into test",
 	}); err != nil {
 		fmt.Println(err.Error())
 	}

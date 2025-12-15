@@ -1,8 +1,6 @@
 package email
 
 import (
-	"errors"
-
 	"github.com/springmove/notifly/src/base"
 	"github.com/springmove/sptty"
 	"gopkg.in/gomail.v2"
@@ -12,7 +10,7 @@ type Service struct {
 	sptty.BaseService
 
 	cfg     Config
-	dialers map[string]*gomail.Dialer
+	clients []*base.EmailClient
 }
 
 func (s *Service) Init(app sptty.ISptty) error {
@@ -20,7 +18,15 @@ func (s *Service) Init(app sptty.ISptty) error {
 		return err
 	}
 
-	s.load()
+	if !s.cfg.Enable {
+		sptty.Log(sptty.InfoLevel, "Service Disabled", s.ServiceName())
+		return nil
+	}
+
+	if err := s.initClients(); err != nil {
+		return nil
+	}
+
 	return nil
 }
 
@@ -28,40 +34,24 @@ func (s *Service) ServiceName() string {
 	return base.ServiceEmail
 }
 
-func (s *Service) load() {
-	s.dialers = map[string]*gomail.Dialer{}
-	for name, endpoint := range s.cfg.Endpoints {
-		dialer := gomail.NewDialer(endpoint.Host, endpoint.Port, endpoint.Author, endpoint.Pwd)
-		s.dialers[name] = dialer
+func (s *Service) initClients() error {
+	s.clients = []*base.EmailClient{}
+	for k, v := range s.cfg.Configs {
+		dialer := gomail.NewDialer(v.Host, v.Port, v.Author, v.Pwd)
+		s.clients = append(s.clients, &base.EmailClient{
+			Dialer:   dialer,
+			Endpoint: &s.cfg.Configs[k],
+		})
 	}
+
+	return nil
 }
 
-func (s *Service) getEndpoint(endpoint string) (*Endpoint, error) {
-	ep, exist := s.cfg.Endpoints[endpoint]
-	if !exist {
-		return nil, errors.New("Endpoint Not Found ")
+func (s *Service) EmailClient(index ...int) *base.EmailClient {
+	target := 0
+	if len(index) > 0 {
+		target = index[0]
 	}
 
-	return &ep, nil
-}
-
-func (s *Service) Send(req *base.ReqEmail) error {
-
-	endpoint, err := s.getEndpoint(req.Endpoint)
-	if err != nil {
-		return err
-	}
-
-	dialer, exist := s.dialers[req.Endpoint]
-	if !exist {
-		return errors.New("Dialer Not Found ")
-	}
-
-	msg := gomail.NewMessage()
-	msg.SetHeader("From", req.Endpoint+"<"+endpoint.Author+">")
-	msg.SetHeader("To", req.MailTo...)
-	msg.SetHeader("Subject", req.Subject)
-	msg.SetBody("text/html", req.Body)
-
-	return dialer.DialAndSend(msg)
+	return s.clients[target]
 }

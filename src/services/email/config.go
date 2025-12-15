@@ -6,16 +6,9 @@ import (
 )
 
 type Config struct {
-	sptty.BaseConfig
+	sptty.BaseConfig `yaml:",inline"`
 
-	Endpoints map[string]Endpoint `yaml:"endpoints"`
-}
-
-type Endpoint struct {
-	Author string `yaml:"author"`
-	Pwd    string `yaml:"pwd"`
-	Host   string `yaml:"host"`
-	Port   int    `yaml:"port"`
+	Configs []base.EmailEntry `yaml:"Configs"`
 }
 
 func (s *Config) ConfigName() string {
